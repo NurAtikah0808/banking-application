@@ -1,1 +1,58 @@
+class Account:
+    #Base class for all accounts.
+    def __init__(self, account_number, account_holder, balance):
+        self.account_number = account_number
+        self.account_holder = account_holder
+        self.balance = balance
+
+    def deposit(self, amount):
+        #Deposit money into the account.
+        if amount > 0:
+            self.balance += amount
+            print(f"Deposited {amount:.2f}. New balance: {self.balance:.2f}")
+        else:
+            print("Deposit amount must be positive.")
+
+    def withdraw(self, amount):
+        #Withdraw money from the account
+        if 0 < amount <= self.balance:
+            self.balance -= amount
+            print(f"Withdrew {amount:.2f}. New balance: {self.balance:.2f}")
+        else:
+            print("Insufficient balance or invalid withdrawal amount.")
+
+    def display_balance(self):
+        #Display the current balance
+        print(f"Account Balance: {self.balance:.2f}")
+
+
+class SavingAccount(Account):
+    #Derived class for savings accounts with interest calculation.
+    def __init__(self, account_number, account_holder, balance, interest_rate):
+        super().__init__(account_number, account_holder, balance)
+        self.interest_rate = interest_rate  # Interest rate in percentage
+
+    def calculate_interest(self):
+        //Calculate interest on the current balance.
+        interest = self.balance * (self.interest_rate / 100)
+        print(f"Interest at {self.interest_rate}%: {interest:.2f}")
+        return interest
+
+
+# Demonstration
+if __name__ == "__main__":
+    # Create a savings account
+    savings = SavingAccount("123456789", "Alice Smith", 1000.00, 3.5)
+
+    print("\n--- Account Details ---")
+    print(f"Account Number: {savings.account_number}")
+    print(f"Account Holder: {savings.account_holder}")
+    savings.display_balance()
+
+    print("\n--- Perform Transactions ---")
+    savings.deposit(500.00)
+    savings.withdraw(200.00)
+
+    print("\n--- Calculate Interest ---")
+    savings.calculate_interest()
 
